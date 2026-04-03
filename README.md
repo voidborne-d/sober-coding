@@ -11,6 +11,20 @@
 
 ---
 
+## Philosophy
+
+> **Vibe coding is fast. Sober coding keeps it alive.**
+
+We're not against vibe coding. AI-generated code is the future.
+
+But vibe coding has a fatal flaw: **it creates technical debt 10x faster than humans.**
+
+Traditional tools (ESLint, SonarQube) catch human coding mistakes. AI-generated code has its own "smell" — duplication patterns, over-generation, missing edge cases, structural redundancy.
+
+Sober Coding specifically targets these AI-native patterns, helping you clean up before technical debt spirals out of control.
+
+---
+
 ## The Problem
 
 You vibe-coded a project with Cursor, Claude Code, or Copilot. It runs. But deep down, you know:
@@ -305,20 +319,6 @@ CI mode outputs SARIF format, compatible with GitHub Code Scanning.
 | Runs locally | ✅ | ✅ | ✅ | ❌ server |
 | Claude Code integration | ✅ | ❌ | ❌ | ❌ |
 | Free | ✅ | ✅ | ✅ | ⚠️ freemium |
-
----
-
-## Philosophy
-
-> **Vibe coding is fast. Sober coding keeps it alive.**
-
-We're not against vibe coding. AI-generated code is the future.
-
-But vibe coding has a fatal flaw: **it creates technical debt 10x faster than humans.**
-
-Traditional tools (ESLint, SonarQube) catch human coding mistakes. AI-generated code has its own "smell" — duplication patterns, over-generation, missing edge cases, structural redundancy.
-
-Sober Coding specifically targets these AI-native patterns, helping you clean up before technical debt spirals out of control.
 
 ---
 

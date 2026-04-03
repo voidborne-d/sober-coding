@@ -1,6 +1,6 @@
 # 🧊 Sober Coding
 
-**Vibe coding 的解酒药。分析 AI 生成代码质量，定位技术债务，给出修复方案。**
+**Vibe coding 的解酒药。分析 AI 生成代码质量,定位技术债务,给出修复方案。**
 
 [![GitHub stars](https://img.shields.io/github/stars/voidborne-d/sober-coding?style=flat-square)](https://github.com/voidborne-d/sober-coding)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
@@ -11,19 +11,33 @@
 
 ---
 
+## 理念
+
+> **Vibe coding 很快。Sober coding 让它活下去。**
+
+我们不反对 vibe coding。AI 生成代码是趋势，回不去了。
+
+但 vibe coding 有个致命问题：**它制造技术债务的速度比人类快 10 倍。**
+
+传统工具（ESLint、SonarQube）检测的是人类写代码的常见问题。AI 生成的代码有自己的“味道”——重复模式、过度生成、缺少边界处理、结构性冗余。
+
+Sober Coding 专门识别这些 AI 特有的模式，帮你在技术债务失控之前清理干净。
+
+---
+
 ## 问题
 
-你用 Cursor、Claude Code、Copilot 写了一个项目。跑起来了。但你心里清楚：
+你用 Cursor、Claude Code、Copilot 写了一个项目。跑起来了。但你心里清楚:
 
-- 🔴 **死代码遍地** — AI 生成了 5 个版本，你只用了最后一个，前 4 个还在
-- 🔴 **复制粘贴地狱** — 同一段逻辑出现 3 次，AI 每次都从头写
-- 🔴 **没有错误处理** — happy path 完美，一出错就 crash
-- 🔴 **上帝文件** — 2000 行的 `utils.py`，什么都往里塞
-- 🔴 **依赖混乱** — 装了 47 个包，实际用了 12 个
-- 🔴 **安全漏洞** — 写死的密钥、SQL 注入、路径穿越
-- 🔴 **零测试** — "我电脑上能跑"就是唯一的测试
+- 🔴 **死代码遍地** - AI 生成了 5 个版本,你只用了最后一个,前 4 个还在
+- 🔴 **复制粘贴地狱** - 同一段逻辑出现 3 次,AI 每次都从头写
+- 🔴 **没有错误处理** - happy path 完美,一出错就 crash
+- 🔴 **上帝文件** - 2000 行的 `utils.py`,什么都往里塞
+- 🔴 **依赖混乱** - 装了 47 个包,实际用了 12 个
+- 🔴 **安全漏洞** - 写死的密钥、SQL 注入、路径穿越
+- 🔴 **零测试** - "我电脑上能跑"就是唯一的测试
 
-Sober Coding 帮你把这些全找出来，告诉你先修什么、怎么修。
+Sober Coding 帮你把这些全找出来,告诉你先修什么、怎么修。
 
 ---
 
@@ -34,26 +48,26 @@ sober scan ./my-vibe-project
 ```
 
 ```
-🧊 Sober Coding v0.1.0 — 让我们看看情况。
+🧊 Sober Coding v0.1.0 - 让我们看看情况。
 
-扫描 ./my-vibe-project（1,247 文件，89,302 行）
+扫描 ./my-vibe-project(1,247 文件,89,302 行)
 
 ╭──────────────────────────────────────────────────╮
 │  清醒指数: 34/100  🟠 宿醉中                       │
 ╰──────────────────────────────────────────────────╯
 
-  🔴 严重（立即修复）
+  🔴 严重(立即修复)
      SEC-001  config.py:23 写死了 API key
      SEC-003  api/users.py:87 存在 SQL 注入
 
-  🟠 高（本周修复）
+  🟠 高(本周修复)
      DUP-012  89% 重复: utils/parse.py ↔ helpers/format.py
-     ARC-003  上帝文件: services/main.py（2,341 行，47 个函数）
+     ARC-003  上帝文件: services/main.py(2,341 行,47 个函数)
      ERR-007  23/45 个 API 端点没有错误处理
 
-  🟡 中（本迭代修复）
+  🟡 中(本迭代修复)
      DEP-001  package.json 中 31 个未使用的依赖
-     TST-001  0% 测试覆盖率（未找到测试文件）
+     TST-001  0% 测试覆盖率(未找到测试文件)
      DUP-004  登录逻辑在 3 个文件中重复
 
   📊 总结
@@ -75,28 +89,28 @@ sober scan ./my-vibe-project
 
 ## 修复模式
 
-不只是告诉你问题在哪，还告诉你怎么修：
+不只是告诉你问题在哪,还告诉你怎么修:
 
 ```bash
 sober fix DUP-012
 ```
 
 ```
-🔧 DUP-012: 检测到高度相似代码（89% 相似度）
+🔧 DUP-012: 检测到高度相似代码(89% 相似度)
 
   文件 A: utils/parse.py:45-92
   文件 B: helpers/format.py:12-58
 
-  为什么重要：
-  修了一个的 bug，另一个还在。AI 不知道它已经写过一遍了。
+  为什么重要:
+  修了一个的 bug,另一个还在。AI 不知道它已经写过一遍了。
 
-  修复方法：
+  修复方法:
   1. 提取共享逻辑到独立函数
   2. 两个文件都从共享模块导入
   3. 删除重复代码
 
-  建议重构：
-  ┌─ shared/text_utils.py（新建）─────────────────┐
+  建议重构:
+  ┌─ shared/text_utils.py(新建)─────────────────┐
   │ def normalize_text(raw: str) -> str:          │
   │     """合并 parse.py:45-92 和 format.py"""     │
   │     ...                                        │
@@ -110,7 +124,7 @@ sober fix DUP-012
 ## 安装
 
 ```bash
-# npm（推荐）
+# npm(推荐)
 npm install -g sober-coding
 
 # pip
@@ -133,19 +147,19 @@ clawhub install sober-coding
 
 ## Claude Code
 
-复制 slash commands 到项目里：
+复制 slash commands 到项目里:
 
 ```bash
 cp sober-coding/claude-code/*.md YOUR_PROJECT/.claude/commands/
 ```
 
-然后直接用：
+然后直接用:
 
 ```
 /sober-scan              # 全项目扫描
 /sober-fix DUP-012       # 获取修复方案
 /sober-report            # 生成 HTML 报告
-/sober-watch             # 监听模式 — 保存时自动扫描
+/sober-watch             # 监听模式 - 保存时自动扫描
 ```
 
 ---
@@ -174,8 +188,8 @@ cp sober-coding/claude-code/*.md YOUR_PROJECT/.claude/commands/
 | ID | 检查项 | 说明 |
 |---|---|---|
 | DUP-001 | 完全克隆 | 一模一样的代码块 |
-| DUP-002 | 近似克隆 | 高度相似（>70%），AI 的经典行为 |
-| DUP-003 | 结构克隆 | 结构相同，变量名不同 |
+| DUP-002 | 近似克隆 | 高度相似(>70%),AI 的经典行为 |
+| DUP-003 | 结构克隆 | 结构相同,变量名不同 |
 
 ### ⚠️ 错误处理
 | ID | 检查项 | 说明 |
@@ -214,11 +228,11 @@ cp sober-coding/claude-code/*.md YOUR_PROJECT/.claude/commands/
 | 分数 | 等级 | 含义 |
 |---|---|---|
 | 80-100 | 🟢 **清醒** | 干净、可维护的代码。可以上线。 |
-| 60-79 | 🟡 **微醺** | 有些问题。趁早修，别恶化。 |
+| 60-79 | 🟡 **微醺** | 有些问题。趁早修,别恶化。 |
 | 40-59 | 🟠 **宿醉** | 技术债务明显。需要一个清理迭代。 |
-| 0-39 | 🔴 **断片** | 严重问题。停止开发，先修再说。 |
+| 0-39 | 🔴 **断片** | 严重问题。停止开发,先修再说。 |
 
-每个维度 0-10 分，加权汇总。权重可在配置文件中自定义。
+每个维度 0-10 分,加权汇总。权重可在配置文件中自定义。
 
 ---
 
@@ -235,13 +249,13 @@ cp sober-coding/claude-code/*.md YOUR_PROJECT/.claude/commands/
 | PHP | ✅ | 🔜 | 🔜 |
 | C/C++ | ✅ | 🔜 | 🔜 |
 
-语言无关的检测（重复、死代码、依赖、安全）对所有语言都生效。
+语言无关的检测(重复、死代码、依赖、安全)对所有语言都生效。
 
 ---
 
 ## 配置
 
-零配置即可使用。需要自定义时在项目根目录放 `.soberrc.json`：
+零配置即可使用。需要自定义时在项目根目录放 `.soberrc.json`:
 
 ```json
 {
@@ -287,7 +301,7 @@ sober-check:
   allow_failure: false
 ```
 
-CI 模式下输出 SARIF 格式，可直接推到 GitHub Code Scanning。
+CI 模式下输出 SARIF 格式,可直接推到 GitHub Code Scanning。
 
 ---
 
@@ -308,20 +322,6 @@ CI 模式下输出 SARIF 格式，可直接推到 GitHub Code Scanning。
 
 ---
 
-## 理念
-
-> **Vibe coding 很快。Sober coding 让它活下去。**
-
-我们不反对 vibe coding。AI 生成代码是趋势，回不去了。
-
-但 vibe coding 有个致命问题：**它制造技术债务的速度比人类快 10 倍。**
-
-传统工具（ESLint、SonarQube）检测的是人类写代码的常见问题。AI 生成的代码有自己的"味道"——重复模式、过度生成、缺少边界处理、结构性冗余。
-
-Sober Coding 专门识别这些 AI 特有的模式，帮你在技术债务失控之前清理干净。
-
----
-
 ## 路线图
 
 - [x] 核心扫描引擎
@@ -331,9 +331,9 @@ Sober Coding 专门识别这些 AI 特有的模式，帮你在技术债务失控
 - [ ] 自动修复引擎
 - [ ] HTML/PDF 报告生成
 - [ ] VS Code 扩展
-- [ ] GitHub Action（应用市场）
-- [ ] 监听模式（保存时自动扫描）
-- [ ] AI 指纹识别（检测代码由哪个 AI 生成）
+- [ ] GitHub Action(应用市场)
+- [ ] 监听模式(保存时自动扫描)
+- [ ] AI 指纹识别(检测代码由哪个 AI 生成)
 - [ ] 团队仪表盘
 
 ---
@@ -352,4 +352,4 @@ Sober Coding 专门识别这些 AI 特有的模式，帮你在技术债务失控
 
 ## 许可证
 
-MIT — 随便用，随便改，永远免费。
+MIT - 随便用,随便改,永远免费。
