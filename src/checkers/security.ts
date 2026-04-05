@@ -87,6 +87,10 @@ export const securityChecker: Checker = {
       for (let i = 0; i < file.lines.length; i++) {
         const line = file.lines[i];
         const lineNum = i + 1;
+        const trimmedLine = line.trimStart();
+
+        // Skip comment-only lines and pure string lines (avoid false positives in docs/examples)
+        if (trimmedLine.startsWith("//") || trimmedLine.startsWith("#") || trimmedLine.startsWith("*") || trimmedLine.startsWith("/*")) continue;
 
         // SEC-001: Hardcoded secrets
         for (const { regex, label } of SECRET_PATTERNS) {
@@ -135,9 +139,11 @@ export const securityChecker: Checker = {
           }
         }
 
-        // SEC-005: CORS misconfiguration
+        // SEC-005: CORS misconfiguration (only trigger on actual code, not string content)
+        // Skip if the match is inside a string value assignment (e.g., why: "...Access-Control...")
+        const isDocLine = /^\s*(?:why|title|description|message|detail|label|text|comment|error)\s*[:=]/.test(line);
         for (const pattern of CORS_PATTERNS) {
-          if (pattern.test(line)) {
+          if (!isDocLine && pattern.test(line)) {
             issues.push({
               id: "SEC-005",
               title: "CORS misconfiguration",

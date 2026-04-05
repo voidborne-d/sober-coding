@@ -119,8 +119,11 @@ export const duplicationChecker: Checker = {
     // --- DUP-003: Structural clones (control-flow sequence matching) ---
     const MIN_CONTROL_FLOW_LEN = 8;
     const structMap = new Map<string, { file: string; startLine: number }>();
+    const TEST_FILE_PATTERN = /\.(test|spec)\.[^.]+$|_test\.\w+$|test_[^/]+$|__tests__/;
 
     for (const file of files) {
+      // Skip test files — repetitive control flow is normal in tests
+      if (TEST_FILE_PATTERN.test(file.path)) continue;
       // Build control-flow sequence for the file
       const cfSequence: { keywords: string[]; line: number }[] = [];
       for (let i = 0; i < file.lines.length; i++) {

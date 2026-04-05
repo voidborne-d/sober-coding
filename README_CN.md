@@ -41,49 +41,56 @@ Sober Coding 帮你把这些全找出来,告诉你先修什么、怎么修。
 
 ---
 
-## 30 秒看效果
+## 真实项目扫描
+
+对一个真实的 vibe coded 全栈项目（Python + Vue.js，50 文件，1.3 万行）进行扫描：
 
 ```bash
-sober scan ./my-vibe-project
+sober scan ./RedInk
 ```
 
 ```
-🧊 Sober Coding v0.1.0 - 让我们看看情况。
+🧊 Sober Coding v0.1.0 — Let's see what we're working with.
 
-扫描 ./my-vibe-project(1,247 文件,89,302 行)
+扫描 ./RedInk（50 文件，13,579 行）
 
-╭──────────────────────────────────────────────────╮
-│  清醒指数: 34/100  🟠 宿醉中                       │
-╰──────────────────────────────────────────────────╯
+╭────────────────────────────────────────╮
+│  清醒指数: 0/100  🔴 断片               │
+╰────────────────────────────────────────╯
 
-  🔴 严重(立即修复)
-     SEC-001  config.py:23 写死了 API key
-     SEC-003  api/users.py:87 存在 SQL 注入
+  🟠 高（本周修复）
+     ERR-001  空的 except 块 in backend/routes/config_routes.py:231
+     ERR-001  空的 except 块 in backend/services/content.py:111
+     ERR-001  空的 catch 块 in frontend/src/views/HistoryView.vue:189
+     ...（共 7 个）
 
-  🟠 高(本周修复)
-     DUP-012  89% 重复: utils/parse.py ↔ helpers/format.py
-     ARC-003  上帝文件: services/main.py(2,341 行,47 个函数)
-     ERR-007  23/45 个 API 端点没有错误处理
+  🟡 中（本迭代修复）
+     ARC-004  深层嵌套 in backend/app.py:89
+     DED-004  不可达代码 in backend/generators/google_genai.py:372
+     DUP-001  完全重复代码块 in backend/generators/image_api.py:68
+     ARC-001  上帝文件: backend/generators/google_genai.py（500+ 行）
+     ERR-002  无错误处理 in backend/services/content.py:45
+     ...（共 1,067 个）
 
-  🟡 中(本迭代修复)
-     DEP-001  package.json 中 31 个未使用的依赖
-     TST-001  0% 测试覆盖率(未找到测试文件)
-     DUP-004  登录逻辑在 3 个文件中重复
+  ⚪ 低（有空再修）
+     DUP-003  结构克隆 in backend/generators/image_api.py:51
+     DED-002  未使用导入: Dict in backend/app.py:2
+     ...（共 94 个）
 
-  📊 总结
-     安全性:     2/10
-     架构:       4/10
-     重复度:     3/10
-     错误处理:   2/10
-     依赖管理:   4/10
-     测试覆盖:   0/10
-     死代码:     5/10
-     ─────────────────
-     综合:       34/100
-
-  💊 运行 `sober fix SEC-001` 获取修复方案
-  📋 运行 `sober report` 生成完整报告
+  💊 运行 `sober fix ERR-001` 获取修复方案
 ```
+
+**共发现 1,172 个问题。** 主要问题分布：
+
+| 问题 | 数量 | 含义 |
+|------|------|------|
+| ARC-004 | 604 | 深层嵌套（>4 层）— AI 最爱嵌套 if/for/try |
+| DED-004 | 226 | return/break 后的不可达代码 |
+| DUP-001 | 180 | 跨文件完全重复的代码块 |
+| DUP-003 | 81 | 结构相同、变量名不同的克隆代码 |
+| ERR-002 | 30 | 异步调用没有错误处理 |
+
+这就是 vibe coding 的真面目。
 
 ---
 

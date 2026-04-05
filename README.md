@@ -41,49 +41,56 @@ Sober Coding finds all of this, tells you what to fix first, and how.
 
 ---
 
-## 30 Seconds Demo
+## Real-World Demo
+
+Scanning a real vibe-coded full-stack project (Python + Vue.js, 50 files, 13k lines):
 
 ```bash
-sober scan ./my-vibe-project
+sober scan ./RedInk
 ```
 
 ```
 🧊 Sober Coding v0.1.0 — Let's see what we're working with.
 
-Scanning ./my-vibe-project (1,247 files, 89,302 lines)
+Scanning ./RedInk (50 files, 13,579 lines)
 
-╭──────────────────────────────────────────────────╮
-│  SOBRIETY SCORE: 34/100  🟠 HUNGOVER             │
-╰──────────────────────────────────────────────────╯
-
-  🔴 Critical (fix now)
-     SEC-001  Hardcoded API key in config.py:23
-     SEC-003  SQL injection in api/users.py:87
+╭────────────────────────────────────────╮
+│  SOBRIETY SCORE: 0/100  🔴 BLACKOUT  │
+╰────────────────────────────────────────╯
 
   🟠 High (fix this week)
-     DUP-012  89% duplicate: utils/parse.py ↔ helpers/format.py
-     ARC-003  God file: services/main.py (2,341 lines, 47 functions)
-     ERR-007  No error handling in 23/45 API endpoints
+     ERR-001  Empty except block in backend/routes/config_routes.py:231
+     ERR-001  Empty except block in backend/services/content.py:111
+     ERR-001  Empty catch block in frontend/src/views/HistoryView.vue:189
+     ... (7 total)
 
   🟡 Medium (fix this sprint)
-     DEP-001  31 unused dependencies in package.json
-     TST-001  0% test coverage (0 test files found)
-     DUP-004  Login logic duplicated in 3 files
+     ARC-004  Deep nesting in backend/app.py:89
+     DED-004  Unreachable code in backend/generators/google_genai.py:372
+     DUP-001  Exact duplicate code block in backend/generators/image_api.py:68
+     ARC-001  God file: backend/generators/google_genai.py (500+ lines)
+     ERR-002  No error handling in backend/services/content.py:45
+     ... (1,067 total)
 
-  📊 Summary
-     Security:       2/10
-     Architecture:   4/10
-     Duplication:    3/10
-     Error Handling: 2/10
-     Dependencies:   4/10
-     Test Coverage:  0/10
-     Dead Code:      5/10
-     ─────────────────
-     Overall:        34/100
+  ⚪ Low (when you can)
+     DUP-003  Structural clone detected in backend/generators/image_api.py:51
+     DED-002  Unused import: Dict in backend/app.py:2
+     ... (94 total)
 
-  💊 Run `sober fix SEC-001` to get fix instructions
-  📋 Run `sober report` for full HTML report
+  💊 Run `sober fix ERR-001` to get fix instructions
 ```
+
+**1,172 issues found.** The top offenders:
+
+| Issue | Count | What it means |
+|-------|-------|---------------|
+| ARC-004 | 604 | Deep nesting (>4 levels) — AI loves nested if/for/try |
+| DED-004 | 226 | Unreachable code after return/break |
+| DUP-001 | 180 | Exact duplicate code blocks across files |
+| DUP-003 | 81 | Same control-flow structure, different variable names |
+| ERR-002 | 30 | Async calls without error handling |
+
+This is what vibe coding looks like under the hood.
 
 ---
 
