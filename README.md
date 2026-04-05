@@ -325,10 +325,18 @@ CI mode outputs SARIF format, compatible with GitHub Code Scanning.
 ## Roadmap
 
 - [x] Core scanner engine
-- [x] Security checks
-- [x] Duplication detection
+- [x] Security checks (SEC-001~005)
+- [x] Architecture checks (ARC-001~005)
+- [x] Duplication detection (DUP-001~003)
+- [x] Error handling checks (ERR-001~004)
+- [x] Dependency checks (DEP-001~003)
+- [x] Testing checks (TST-001~003)
+- [x] Dead code detection (DED-001~004)
 - [x] CLI with scoring
-- [ ] Auto-fix engine
+- [x] Fix suggestions (`sober fix <ID>`)
+- [x] `.soberrc.json` config support
+- [x] CI mode (`--ci`, `--fail-on`)
+- [ ] Auto-fix engine (`--apply`)
 - [ ] HTML/PDF report generation
 - [ ] VS Code extension
 - [ ] GitHub Action (marketplace)

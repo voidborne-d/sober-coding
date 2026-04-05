@@ -1,0 +1,25 @@
+{
+  "name": "sober-coding",
+  "version": "0.1.0",
+  "description": "The hangover cure for vibe coding. Analyze AI-generated code quality.",
+  "type": "module",
+  "bin": {
+    "sober": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "keywords": ["vibe-coding", "code-quality", "static-analysis", "ai-code", "technical-debt"],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "fast-glob": "^3.3.0"
+  }
+}
