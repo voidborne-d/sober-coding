@@ -361,8 +361,9 @@ CI mode outputs SARIF format, compatible with GitHub Code Scanning.
 
 ## From the Same Workshop
 
-Part of [voidborne-d](https://github.com/voidborne-d)'s toolkit for working with AI-generated output. Same premise across all three: **AI leaves fingerprints — these are the tools to detect, clean, or repurpose them.**
+Part of [voidborne-d](https://github.com/voidborne-d)'s toolkit for working with AI-generated output. Same premise across the kit: **AI leaves fingerprints — these are the tools to detect, clean, or repurpose them.**
 
+- **[claude-code-pro](https://github.com/voidborne-d/claude-code-pro)** — token-efficient orchestrator for long Claude Code tasks. The upstream side of this loop: CCP runs the task with 80–97% supervision savings, sober-coding gates the diff before you read it.
 - **[humanize-chinese](https://github.com/voidborne-d/humanize-chinese)** — the natural-language analog. Detects and rewrites AI-generated Chinese text via n-gram perplexity + 20+ pattern detectors + academic AIGC reduction (知网/维普/万方). Pure Python, zero dependencies.
 - **[lambda-lang](https://github.com/voidborne-d/lambda-lang)** — compressed agent-to-agent communication language. 139 atoms, 5–8× compression ratio, Go implementation. Useful when your vibe-coded agents need to talk to each other without burning tokens on prose.
 
